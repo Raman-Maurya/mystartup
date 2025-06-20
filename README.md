@@ -1,4 +1,4 @@
-# Trading Contest Platform
+# Trading Arena
 
 A full-stack application for running trading contests, featuring virtual wallets, real-time market data, and contest leaderboards.
 
