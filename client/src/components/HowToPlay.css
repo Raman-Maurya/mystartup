@@ -1,0 +1,205 @@
+/* How to Play Styles */
+
+.how-to-play-container {
+  padding: 3rem 0;
+}
+
+.page-header {
+  margin-bottom: 3rem;
+}
+
+.page-header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #1a2a6c, #b21f1f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-header .lead {
+  font-size: 1.4rem;
+  color: #6c757d;
+}
+
+/* Getting Started Section */
+.getting-started-card {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border: none;
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.getting-started-card .card-header {
+  background: linear-gradient(90deg, #1a2a6c, #b21f1f);
+  color: white;
+  border: none;
+  padding: 1.2rem 1.5rem;
+  font-weight: 600;
+}
+
+.getting-started-steps {
+  counter-reset: step-counter;
+  list-style: none;
+  padding-left: 0;
+}
+
+.getting-started-steps li {
+  counter-increment: step-counter;
+  position: relative;
+  padding: 1.5rem 0.5rem 1.5rem 4rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.getting-started-steps li:last-child {
+  border-bottom: none;
+}
+
+.getting-started-steps li::before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+.getting-started-steps h4 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Contest Rules Section */
+.contest-rules-card {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border: none;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.contest-rules-card .card-header {
+  background: linear-gradient(90deg, #1a2a6c, #b21f1f);
+  color: white;
+  border: none;
+  padding: 1.2rem 1.5rem;
+  font-weight: 600;
+}
+
+.contest-rules-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.contest-rules-list li {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.contest-rules-list li:last-child {
+  border-bottom: none;
+}
+
+.rule-number {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.rule-content {
+  flex-grow: 1;
+}
+
+/* Prize Distribution Section */
+.prize-distribution-card {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border: none;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.prize-distribution-card .card-header {
+  background: linear-gradient(90deg, #1a2a6c, #b21f1f);
+  color: white;
+  border: none;
+  padding: 1.2rem 1.5rem;
+  font-weight: 600;
+}
+
+.prize-table th {
+  background-color: #f8f9fa;
+  font-weight: 700;
+}
+
+.prize-table td:first-child {
+  font-weight: 600;
+}
+
+/* Tips Section */
+.tips-card {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border: none;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.tips-card .card-header {
+  background: linear-gradient(90deg, #1a2a6c, #b21f1f);
+  color: white;
+  border: none;
+  padding: 1.2rem 1.5rem;
+  font-weight: 600;
+}
+
+.tip {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  height: 100%;
+}
+
+.tip-icon {
+  font-size: 2rem;
+  color: #1a2a6c;
+  margin-bottom: 1rem;
+}
+
+.tip h5 {
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .page-header .lead {
+    font-size: 1.2rem;
+  }
+  
+  .getting-started-steps li {
+    padding-left: 3.5rem;
+  }
+  
+  .getting-started-steps li::before {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}

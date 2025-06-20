@@ -1,0 +1,44 @@
+/* Contest animations and styling */
+.contest-highlight-animation {
+  animation: contestHighlight 2s ease-in-out;
+  position: relative;
+}
+
+@keyframes contestHighlight {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(0);
+    opacity: 1;
+    box-shadow: 0 0 10px 5px rgba(0, 123, 255, 0.7);
+  }
+  75% {
+    box-shadow: 0 0 10px 5px rgba(0, 123, 255, 0.7);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+/* New Contest Badge */
+.new-contest-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 10;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

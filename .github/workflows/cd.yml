@@ -1,0 +1,99 @@
+name: CD
+
+on:
+  push:
+    branches: [ main ]
+    
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test, build]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Download build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: build-artifacts
+        path: client/dist/
+    
+    # If deploying to a cloud provider like Heroku
+    - name: Deploy to Heroku
+      uses: akhileshns/heroku-deploy@v3.12.14
+      with:
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+        heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+        heroku_email: ${{ secrets.HEROKU_EMAIL }}
+        
+    # Alternatively, for AWS deployment
+    # - name: Configure AWS credentials
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     aws-region: ${{ secrets.AWS_REGION }}
+    
+    # - name: Deploy to AWS Elastic Beanstalk
+    #   run: |
+    #     zip -r deploy.zip . -x "node_modules/*" "client/node_modules/*"
+    #     aws s3 cp deploy.zip s3://${{ secrets.AWS_S3_BUCKET }}/
+    #     aws elasticbeanstalk create-application-version \
+    #       --application-name trading-contest \
+    #       --version-label ${{ github.sha }} \
+    #       --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET }}",S3Key="deploy.zip"
+    #     aws elasticbeanstalk update-environment \
+    #       --environment-name trading-contest-env \
+    #       --version-label ${{ github.sha }}
+          
+  # Add job for database migrations
+  migrations:
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    # Add database migration step here if you have any
+    # - name: Run database migrations
+    #   run: npm run migrate
+    #   env:
+    #     MONGODB_URI: ${{ secrets.PROD_MONGODB_URI }}
+
+  # Notify about deployment
+  notify:
+    runs-on: ubuntu-latest
+    needs: [deploy, migrations]
+    if: always()
+    
+    steps:
+    - name: Notify on success
+      if: ${{ success() }}
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_CHANNEL: deployments
+        SLACK_COLOR: good
+        SLACK_TITLE: Production Deployment Successful
+        SLACK_MESSAGE: Trading Contest Platform has been deployed to production
+    
+    - name: Notify on failure
+      if: ${{ failure() }}
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_CHANNEL: deployments
+        SLACK_COLOR: danger
+        SLACK_TITLE: Production Deployment Failed
+        SLACK_MESSAGE: Trading Contest Platform deployment to production failed
